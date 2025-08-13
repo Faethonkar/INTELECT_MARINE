@@ -1,0 +1,283 @@
+{% extends "base.html" %}
+
+{% block title %}Services - {{ company_name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .services-hero {
+        background: var(--gradient-primary);
+        color: var(--white);
+        padding: 8rem 0 4rem;
+        text-align: center;
+    }
+
+    .services-hero h1 {
+        font-family: 'Orbitron', monospace;
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .services-hero p {
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 3rem;
+        margin-top: 4rem;
+    }
+
+    .service-detail-card {
+        background: var(--white);
+        border-radius: 20px;
+        padding: 3rem;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border: 1px solid var(--gray-100);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .service-detail-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-accent);
+    }
+
+    .service-detail-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .service-detail-icon {
+        font-size: 4rem;
+        color: var(--accent-color);
+        margin-bottom: 2rem;
+        display: block;
+    }
+
+    .service-detail-title {
+        font-family: 'Orbitron', monospace;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        color: var(--primary-color);
+    }
+
+    .service-detail-description {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 2rem;
+        color: var(--text-dark);
+    }
+
+    .service-features {
+        list-style: none;
+        padding: 0;
+    }
+
+    .service-features li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--gray-100);
+        position: relative;
+        padding-left: 2rem;
+    }
+
+    .service-features li:before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: var(--accent-color);
+        font-weight: bold;
+    }
+
+    .service-features li:last-child {
+        border-bottom: none;
+    }
+
+    .cta-section {
+        background: var(--gray-50);
+        padding: 5rem 0;
+        text-align: center;
+        margin-top: 5rem;
+    }
+
+    .cta-section h2 {
+        font-family: 'Orbitron', monospace;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+    }
+
+    .cta-section p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        color: var(--text-light);
+    }
+
+    @media (max-width: 768px) {
+        .services-hero h1 {
+            font-size: 2rem;
+        }
+        
+        .services-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .service-detail-card {
+            padding: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Services Hero -->
+<section class="services-hero">
+    <div class="container">
+        <h1>Our Services</h1>
+        <p>Comprehensive marine and industrial automation solutions tailored to your specific needs</p>
+    </div>
+</section>
+
+<!-- Services Details -->
+<section class="section">
+    <div class="container">
+        <div class="services-grid">
+            <div class="service-detail-card">
+                <i class="fas fa-cogs service-detail-icon"></i>
+                <h3 class="service-detail-title">Marine Engine Automation</h3>
+                <p class="service-detail-description">
+                    Complete automation solutions for main engines and diesel generators, ensuring optimal performance and reliability.
+                </p>
+                <ul class="service-features">
+                    <li>Main Engine Control Systems</li>
+                    <li>Diesel Generator Automation</li>
+                    <li>Engine Room Monitoring</li>
+                    <li>Alarm and Safety Systems</li>
+                    <li>Performance Optimization</li>
+                </ul>
+            </div>
+
+            <div class="service-detail-card">
+                <i class="fas fa-microchip service-detail-icon"></i>
+                <h3 class="service-detail-title">PLC Programming</h3>
+                <p class="service-detail-description">
+                    Advanced programmable logic controller programming and system integration for complex automation requirements.
+                </p>
+                <ul class="service-features">
+                    <li>Custom PLC Programming</li>
+                    <li>System Integration</li>
+                    <li>HMI Development</li>
+                    <li>SCADA Systems</li>
+                    <li>Process Automation</li>
+                </ul>
+            </div>
+
+            <div class="service-detail-card">
+                <i class="fas fa-tools service-detail-icon"></i>
+                <h3 class="service-detail-title">Panel Manufacturing</h3>
+                <p class="service-detail-description">
+                    Custom automation panel design and manufacturing for marine and industrial applications with highest quality standards.
+                </p>
+                <ul class="service-features">
+                    <li>Custom Panel Design</li>
+                    <li>Electrical Assembly</li>
+                    <li>Quality Testing</li>
+                    <li>Documentation</li>
+                    <li>Installation Support</li>
+                </ul>
+            </div>
+
+            <div class="service-detail-card">
+                <i class="fas fa-battery-full service-detail-icon"></i>
+                <h3 class="service-detail-title">UPS Systems</h3>
+                <p class="service-detail-description">
+                    Uninterruptible power supply systems design, installation, and maintenance for critical marine operations.
+                </p>
+                <ul class="service-features">
+                    <li>UPS System Design</li>
+                    <li>Installation & Commissioning</li>
+                    <li>Preventive Maintenance</li>
+                    <li>Battery Management</li>
+                    <li>Emergency Support</li>
+                </ul>
+            </div>
+
+            <div class="service-detail-card">
+                <i class="fas fa-fire service-detail-icon"></i>
+                <h3 class="service-detail-title">Boiler Automation</h3>
+                <p class="service-detail-description">
+                    Comprehensive boiler control and automation systems for marine vessels ensuring safety and efficiency.
+                </p>
+                <ul class="service-features">
+                    <li>Boiler Control Systems</li>
+                    <li>Safety Interlocks</li>
+                    <li>Combustion Control</li>
+                    <li>Water Level Management</li>
+                    <li>Efficiency Monitoring</li>
+                </ul>
+            </div>
+
+            <div class="service-detail-card">
+                <i class="fas fa-ship service-detail-icon"></i>
+                <h3 class="service-detail-title">Electronic Propulsion Control</h3>
+                <p class="service-detail-description">
+                    Electronic propulsion control systems for various types of marine vessels with advanced control algorithms.
+                </p>
+                <ul class="service-features">
+                    <li>Propulsion Control Systems</li>
+                    <li>Thruster Control</li>
+                    <li>Dynamic Positioning</li>
+                    <li>Bridge Integration</li>
+                    <li>Performance Monitoring</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Need a Custom Solution?</h2>
+        <p>Contact us to discuss your specific automation requirements and get a tailored solution.</p>
+        <a href="/contact" class="cta-button">Get Quote</a>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Add staggered animation to service cards
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.service-detail-card');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+    });
+</script>
+{% endblock %}
+

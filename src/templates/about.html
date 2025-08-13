@@ -1,0 +1,387 @@
+{% extends "base.html" %}
+
+{% block title %}About Us - {{ company_name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .about-hero {
+        background: var(--gradient-primary);
+        color: var(--white);
+        padding: 8rem 0 4rem;
+        text-align: center;
+    }
+
+    .about-hero h1 {
+        font-family: 'Orbitron', monospace;
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .about-hero p {
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .company-story {
+        padding: 5rem 0;
+        background: var(--white);
+    }
+
+    .story-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        margin-bottom: 4rem;
+    }
+
+    .story-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+
+    .story-text h3 {
+        font-family: 'Orbitron', monospace;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .story-image {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .story-image img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .story-image:hover img {
+        transform: scale(1.05);
+    }
+
+    .team-section {
+        background: var(--gray-50);
+        padding: 5rem 0;
+    }
+
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 3rem;
+        margin-top: 3rem;
+    }
+
+    .team-card {
+        background: var(--white);
+        border-radius: 20px;
+        padding: 3rem;
+        text-align: center;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .team-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .team-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: var(--gradient-accent);
+        margin: 0 auto 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: var(--white);
+        font-family: 'Orbitron', monospace;
+    }
+
+    .team-name {
+        font-family: 'Orbitron', monospace;
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+        color: var(--primary-color);
+    }
+
+    .team-role {
+        color: var(--accent-color);
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .team-description {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: var(--text-dark);
+    }
+
+    .certifications-section {
+        background: var(--primary-color);
+        color: var(--white);
+        padding: 5rem 0;
+        text-align: center;
+    }
+
+    .cert-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .cert-card {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 3rem 2rem;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .cert-card:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-5px);
+    }
+
+    .cert-icon {
+        font-size: 4rem;
+        color: var(--light-blue);
+        margin-bottom: 1.5rem;
+    }
+
+    .cert-title {
+        font-family: 'Orbitron', monospace;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .values-section {
+        background: var(--white);
+        padding: 5rem 0;
+    }
+
+    .values-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-top: 3rem;
+    }
+
+    .value-card {
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .value-icon {
+        font-size: 3rem;
+        color: var(--accent-color);
+        margin-bottom: 1.5rem;
+    }
+
+    .value-title {
+        font-family: 'Orbitron', monospace;
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+    }
+
+    @media (max-width: 768px) {
+        .about-hero h1 {
+            font-size: 2rem;
+        }
+        
+        .story-content {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .team-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- About Hero -->
+<section class="about-hero">
+    <div class="container">
+        <h1>About INTELECT MARINE</h1>
+        <p>Three decades of excellence in marine and industrial automation</p>
+    </div>
+</section>
+
+<!-- Company Story -->
+<section class="company-story">
+    <div class="container">
+        <div class="story-content">
+            <div class="story-text">
+                <h3>Our Foundation</h3>
+                <p>
+                    INTELECT MARINE is a specialized technical workshop in Marine and Industrial Automation, 
+                    carrying over 30 years of experience in the industry. Founded by Charalampos Chatzikonstantinou, 
+                    an electronics engineer who has been working in the industry since the 1990s.
+                </p>
+                <p>
+                    Our journey began with a vision to provide cutting-edge automation solutions for the maritime 
+                    industry, combining technical expertise with innovative approaches to solve complex challenges.
+                </p>
+            </div>
+            <div class="story-image">
+                <img src="/static/images/sBaVNJ3iz3jg.jpg" alt="Marine Control Room">
+            </div>
+        </div>
+
+        <div class="story-content">
+            <div class="story-image">
+                <img src="/static/images/4ChLuBBMI6C3.png" alt="Engine Control Room">
+            </div>
+            <div class="story-text">
+                <h3>Growth & Expansion</h3>
+                <p>
+                    Our team expanded in 2018 with the addition of Eleftherios Tsirtsiridis, bringing additional 
+                    expertise to our operations. This expansion allowed us to take on more complex projects and 
+                    serve a broader range of clients.
+                </p>
+                <p>
+                    We hold BUREAU VERITAS ISO 9001 Certification, ensuring the highest standards of quality 
+                    in all our services. This certification reflects our commitment to excellence and continuous improvement.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="team-section">
+    <div class="container">
+        <h2 class="section-title">Our Team</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-avatar">CC</div>
+                <h3 class="team-name">Charalampos Chatzikonstantinou</h3>
+                <p class="team-role">Founder & Electronics Engineer</p>
+                <p class="team-description">
+                    With over 30 years of experience in marine automation, Charalampos founded INTELECT MARINE 
+                    to provide innovative solutions for the maritime industry. His expertise spans across all 
+                    aspects of marine electrical and automation systems.
+                </p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">ET</div>
+                <h3 class="team-name">Eleftherios Tsirtsiridis</h3>
+                <p class="team-role">Engineer</p>
+                <p class="team-description">
+                    Joining the team in 2018, Eleftherios brought fresh perspectives and additional technical 
+                    expertise to our operations. His contributions have been instrumental in expanding our 
+                    service capabilities and project portfolio.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Certifications -->
+<section class="certifications-section">
+    <div class="container">
+        <h2 class="section-title" style="color: white;">Certifications & Standards</h2>
+        <div class="cert-grid">
+            <div class="cert-card">
+                <i class="fas fa-certificate cert-icon"></i>
+                <h3 class="cert-title">ISO 9001 Certified</h3>
+                <p>BUREAU VERITAS ISO 9001 Quality Management System certification ensuring consistent quality delivery.</p>
+            </div>
+            <div class="cert-card">
+                <i class="fas fa-shield-alt cert-icon"></i>
+                <h3 class="cert-title">Marine Standards</h3>
+                <p>Compliance with international marine safety and quality standards for all automation systems.</p>
+            </div>
+            <div class="cert-card">
+                <i class="fas fa-tools cert-icon"></i>
+                <h3 class="cert-title">Technical Expertise</h3>
+                <p>Certified expertise in PLC programming, electrical systems, and marine automation technologies.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="values-section">
+    <div class="container">
+        <h2 class="section-title">Our Values</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <i class="fas fa-star value-icon"></i>
+                <h3 class="value-title">Excellence</h3>
+                <p>We strive for excellence in every project, delivering solutions that exceed expectations and industry standards.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-handshake value-icon"></i>
+                <h3 class="value-title">Reliability</h3>
+                <p>Our clients trust us to deliver reliable solutions that perform consistently in demanding marine environments.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-lightbulb value-icon"></i>
+                <h3 class="value-title">Innovation</h3>
+                <p>We continuously innovate and adopt new technologies to provide cutting-edge automation solutions.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-users value-icon"></i>
+                <h3 class="value-title">Partnership</h3>
+                <p>We build long-term partnerships with our clients, providing ongoing support and maintenance services.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Work With Us</h2>
+            <p>Experience the difference that 30+ years of expertise can make for your marine automation needs.</p>
+            <div class="cta-buttons">
+                <a href="/contact" class="cta-button">Contact Us</a>
+                <a href="/projects" class="btn-secondary">View Projects</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Staggered animation for cards
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.team-card, .cert-card, .value-card');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+    });
+</script>
+{% endblock %}
+

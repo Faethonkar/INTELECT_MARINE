@@ -1,0 +1,403 @@
+{% extends "base.html" %}
+
+{% block title %}{{ company_name }} - {{ company_tagline }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Hero section specific styles */
+    .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+        opacity: 0;
+        animation: fadeInUp 1s ease 1.3s forwards;
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .stat-item:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    .stat-number {
+        font-family: 'Orbitron', monospace;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--light-blue);
+        display: block;
+    }
+
+    .stat-label {
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+        opacity: 0.9;
+    }
+
+    /* Services preview */
+    .services-preview {
+        background: var(--gray-50);
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .service-card {
+        background: var(--white);
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border: 1px solid var(--gray-100);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .service-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .service-card:hover::before {
+        left: 100%;
+    }
+
+    .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .service-icon {
+        font-size: 3rem;
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    .service-title {
+        font-family: 'Orbitron', monospace;
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+    }
+
+    /* About preview */
+    .about-preview {
+        background: var(--white);
+    }
+
+    .about-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        margin-top: 3rem;
+    }
+
+    .about-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+
+    .about-image {
+        position: relative;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .about-image img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .about-image:hover img {
+        transform: scale(1.05);
+    }
+
+    /* Clients section */
+    .clients-section {
+        background: var(--primary-color);
+        color: var(--white);
+    }
+
+    .clients-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 3rem;
+    }
+
+    .client-item {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 1.5rem;
+        border-radius: 10px;
+        text-align: center;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .client-item:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-5px);
+    }
+
+    /* CTA section */
+    .cta-section {
+        background: var(--gradient-accent);
+        color: var(--white);
+        text-align: center;
+        padding: 5rem 0;
+    }
+
+    .cta-content h2 {
+        font-family: 'Orbitron', monospace;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .cta-content p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+    }
+
+    .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-secondary {
+        background: var(--white);
+        color: var(--accent-color);
+        padding: 1rem 2rem;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-secondary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .about-content {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .hero-stats {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .cta-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">{{ company_name }}</h1>
+        <p class="hero-subtitle">{{ company_tagline }}</p>
+        <p class="hero-description">
+            Leading provider of marine and industrial automation solutions with over 30 years of experience. 
+            We specialize in advanced automation systems for maritime vessels and industrial applications.
+        </p>
+        <a href="/contact" class="cta-button">Get In Touch</a>
+        
+        <div class="hero-stats">
+            <div class="stat-item">
+                <span class="stat-number">30+</span>
+                <span class="stat-label">Years Experience</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Projects Completed</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">ISO</span>
+                <span class="stat-label">9001 Certified</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Support Available</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Preview -->
+<section class="section services-preview">
+    <div class="container">
+        <h2 class="section-title">Our Expertise</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-cogs service-icon"></i>
+                <h3 class="service-title">Marine Automation</h3>
+                <p>Complete automation solutions for main engines, diesel generators, and propulsion systems.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-microchip service-icon"></i>
+                <h3 class="service-title">PLC Programming</h3>
+                <p>Advanced programmable logic controller programming and system integration services.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-tools service-icon"></i>
+                <h3 class="service-title">Panel Manufacturing</h3>
+                <p>Custom automation panel design and manufacturing for marine and industrial applications.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-battery-full service-icon"></i>
+                <h3 class="service-title">UPS Systems</h3>
+                <p>Uninterruptible power supply systems design, installation, and maintenance.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-fire service-icon"></i>
+                <h3 class="service-title">Boiler Automation</h3>
+                <p>Comprehensive boiler control and automation systems for marine vessels.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-ship service-icon"></i>
+                <h3 class="service-title">Propulsion Control</h3>
+                <p>Electronic propulsion control systems for various types of marine vessels.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Preview -->
+<section class="section about-preview">
+    <div class="container">
+        <h2 class="section-title">About INTELECT MARINE</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>
+                    INTELECT MARINE is a specialized technical workshop in Marine and Industrial Automation, 
+                    carrying over 30 years of experience in the industry. Founded by Charalampos Chatzikonstantinou, 
+                    an electronics engineer who has been working in the industry since the 1990s.
+                </p>
+                <p>
+                    Our team expanded in 2018 with the addition of Eleftherios Tsirtsiridis, bringing additional 
+                    expertise to our operations. We hold BUREAU VERITAS ISO 9001 Certification, ensuring the 
+                    highest standards of quality in all our services.
+                </p>
+                <p>
+                    The main bulk of our operations is in the Maritime industry, serving bulk carriers, containers, 
+                    tankers, reefers, ferry boats, cruisers, motor and sailing yachts, and navy ships.
+                </p>
+            </div>
+            <div class="about-image">
+                <img src="/static/images/sBaVNJ3iz3jg.jpg" alt="Marine Automation Control Room">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Clients Section -->
+<section class="section clients-section">
+    <div class="container">
+        <h2 class="section-title" style="color: white;">Trusted by Industry Leaders</h2>
+        <div class="clients-grid">
+            {% for client in clients %}
+            <div class="client-item">
+                <h4>{{ client }}</h4>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready to Automate Your Marine Operations?</h2>
+            <p>Contact us today to discuss your automation needs and get a custom solution.</p>
+            <div class="cta-buttons">
+                <a href="/contact" class="cta-button">Contact Us</a>
+                <a href="/services" class="btn-secondary">View Services</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Counter animation for stats
+    function animateCounters() {
+        const counters = document.querySelectorAll('.stat-number');
+        
+        counters.forEach(counter => {
+            const target = counter.textContent;
+            if (!isNaN(target.replace('+', ''))) {
+                const targetNum = parseInt(target.replace('+', ''));
+                let current = 0;
+                const increment = targetNum / 50;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= targetNum) {
+                        counter.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current) + (target.includes('+') ? '+' : '');
+                    }
+                }, 50);
+            }
+        });
+    }
+
+    // Trigger counter animation when stats section is visible
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounters();
+                statsObserver.unobserve(entry.target);
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const statsSection = document.querySelector('.hero-stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+    });
+</script>
+{% endblock %}
+

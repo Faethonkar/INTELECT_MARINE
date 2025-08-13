@@ -1,0 +1,346 @@
+{% extends "base.html" %}
+
+{% block title %}Projects - {{ company_name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .projects-hero {
+        background: var(--gradient-primary);
+        color: var(--white);
+        padding: 8rem 0 4rem;
+        text-align: center;
+    }
+
+    .projects-hero h1 {
+        font-family: 'Orbitron', monospace;
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .projects-hero p {
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 3rem;
+        margin-top: 4rem;
+    }
+
+    .project-card {
+        background: var(--white);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border: 1px solid var(--gray-100);
+    }
+
+    .project-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .project-image {
+        height: 250px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .project-image::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(10, 37, 64, 0.8), rgba(59, 130, 246, 0.6));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .project-card:hover .project-image::before {
+        opacity: 1;
+    }
+
+    .project-type {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: var(--accent-color);
+        color: var(--white);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .project-content {
+        padding: 2rem;
+    }
+
+    .project-title {
+        font-family: 'Orbitron', monospace;
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+    }
+
+    .project-description {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: var(--text-dark);
+        margin-bottom: 1.5rem;
+    }
+
+    .project-features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .project-feature {
+        background: var(--gray-100);
+        color: var(--text-dark);
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+
+    .stats-section {
+        background: var(--primary-color);
+        color: var(--white);
+        padding: 5rem 0;
+        text-align: center;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .stat-card {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 2rem;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .stat-number {
+        font-family: 'Orbitron', monospace;
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--light-blue);
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+        font-size: 1rem;
+        opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+        .projects-hero h1 {
+            font-size: 2rem;
+        }
+        
+        .projects-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .project-card {
+            margin: 0 1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Projects Hero -->
+<section class="projects-hero">
+    <div class="container">
+        <h1>Our Projects</h1>
+        <p>Showcasing our expertise in marine automation across various vessel types and applications</p>
+    </div>
+</section>
+
+<!-- Projects Grid -->
+<section class="section">
+    <div class="container">
+        <div class="projects-grid">
+            {% for project in projects %}
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('/static/images/{% if loop.index == 1 %}p1fwtROw6f2F.jpg{% elif loop.index == 2 %}F8WSkHof0b5H.jpg{% elif loop.index == 3 %}dL0w9IwlaPVz.jpg{% else %}JVtiL07ICyjX.jpg{% endif %}');">
+                    <div class="project-type">{{ project.type }}</div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">{{ project.name }}</h3>
+                    <p class="project-description">{{ project.description }}</p>
+                    <div class="project-features">
+                        <span class="project-feature">Automation Systems</span>
+                        <span class="project-feature">Control Panels</span>
+                        <span class="project-feature">Monitoring</span>
+                        {% if loop.index <= 2 %}
+                        <span class="project-feature">Navigation Systems</span>
+                        {% endif %}
+                        {% if loop.index >= 3 %}
+                        <span class="project-feature">Safety Systems</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Project Stats -->
+<section class="stats-section">
+    <div class="container">
+        <h2 class="section-title" style="color: white; margin-bottom: 1rem;">Project Statistics</h2>
+        <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 0;">Our track record speaks for itself</p>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Projects Completed</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Vessel Types</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">30+</span>
+                <span class="stat-label">Years Experience</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Client Satisfaction</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Additional Projects Section -->
+<section class="section" style="background: var(--gray-50);">
+    <div class="container">
+        <h2 class="section-title">Vessel Types We Serve</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-ship service-icon"></i>
+                <h3 class="service-title">Bulk Carriers</h3>
+                <p>Complete automation solutions for bulk carrier vessels including cargo handling systems.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-anchor service-icon"></i>
+                <h3 class="service-title">Container Ships</h3>
+                <p>Advanced automation for container vessels with integrated cargo management systems.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-oil-can service-icon"></i>
+                <h3 class="service-title">Tankers</h3>
+                <p>Specialized automation for oil and chemical tankers with safety-critical systems.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-snowflake service-icon"></i>
+                <h3 class="service-title">Reefer Ships</h3>
+                <p>Temperature control and monitoring systems for refrigerated cargo vessels.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-users service-icon"></i>
+                <h3 class="service-title">Ferry Boats</h3>
+                <p>Passenger ferry automation including propulsion and safety systems.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-sailboat service-icon"></i>
+                <h3 class="service-title">Yachts</h3>
+                <p>Luxury yacht automation systems for both motor and sailing vessels.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Start Your Next Project</h2>
+            <p>Ready to implement advanced automation for your vessel? Let's discuss your requirements.</p>
+            <div class="cta-buttons">
+                <a href="/contact" class="cta-button">Contact Us</a>
+                <a href="/services" class="btn-secondary">View Services</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Staggered animation for project cards
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.project-card');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 150);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Counter animation for stats
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target.textContent;
+                    if (!isNaN(target.replace(/[+%]/g, ''))) {
+                        const targetNum = parseInt(target.replace(/[+%]/g, ''));
+                        let current = 0;
+                        const increment = targetNum / 50;
+                        
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= targetNum) {
+                                entry.target.textContent = target;
+                                clearInterval(timer);
+                            } else {
+                                const suffix = target.includes('+') ? '+' : target.includes('%') ? '%' : '';
+                                entry.target.textContent = Math.floor(current) + suffix;
+                            }
+                        }, 50);
+                    }
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        statNumbers.forEach(stat => {
+            statsObserver.observe(stat);
+        });
+    });
+</script>
+{% endblock %}
+
