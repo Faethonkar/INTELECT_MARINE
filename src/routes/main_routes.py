@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect
 
 main_bp = Blueprint('main', __name__)
 
@@ -43,14 +43,14 @@ def inject_company_data():
             'Electronic Propulsion Control'
         ],
         'clients': [
-            'LASKARIDIS GROUP',
-            'GREEK NAVY',
-            'MINOAN LINES (GRIMALDI GROUP)',
-            'SEA JETS',
-            'GENIMAR SHIPPING',
-            'TSANGARIS BROS',
-            'AEGEAN SEA LINES',
-            'ASSO SUBSEA'
+            {'name': 'LASKARIDIS GROUP', 'url': 'https://laskmar.com/en'},
+            {'name': 'GREEK NAVY', 'url': 'https://www.hellenicnavy.gr'},
+            {'name': 'MINOAN LINES (GRIMALDI GROUP)', 'url': 'https://www.minoan.gr'},
+            {'name': 'SEA JETS', 'url': 'https://www.seajets.gr'},
+            {'name': 'GENIMAR SHIPPING', 'url': 'https://www.genimar.com'},
+            {'name': 'TSANGARIS BROS', 'url': 'https://e-nautilia.gr/company/tsangaris-bros-ltd/'},
+            {'name': 'AEGEAN SEA LINES', 'url': 'https://aegean-sealines.gr/'},
+            {'name': 'ASSO SUBSEA', 'url': 'https://www.assogroup.com/'}
         ],
         'projects': [
             {
@@ -75,4 +75,36 @@ def inject_company_data():
             }
         ]
     }
+
+@main_bp.route('/laskaridis')
+def laskaridis():
+    return redirect('https://www.laskaridis.com')
+
+@main_bp.route('/greek-navy')
+def greek_navy():
+    return redirect('https://www.hellenicnavy.gr')
+
+@main_bp.route('/minoan-lines')
+def minoan_lines():
+    return redirect('https://www.minoan.gr')
+
+@main_bp.route('/sea-jets')
+def sea_jets():
+    return redirect('https://www.seajets.gr')
+
+@main_bp.route('/genimar')
+def genimar():
+    return redirect('https://www.genimar.com')
+
+@main_bp.route('/tsangaris-bros')
+def tsangaris_bros():
+    return redirect('https://www.tsangarisbros.gr')
+
+@main_bp.route('/aegean-sea-lines')
+def aegean_sea_lines():
+    return redirect('https://www.aegeansealines.gr')
+
+@main_bp.route('/asso-subsea')
+def asso_subsea():
+    return redirect('https://www.assosubsea.com')
 

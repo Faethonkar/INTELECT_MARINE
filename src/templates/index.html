@@ -139,8 +139,9 @@
 
     /* Clients section */
     .clients-section {
-        background: var(--primary-color);
-        color: var(--white);
+        background-color: #f9f9f9; /* Light gray background */
+        padding: 20px;
+        border-radius: 8px;
     }
 
     .clients-grid {
@@ -162,7 +163,24 @@
 
     .client-item:hover {
         background: rgba(255, 255, 255, 0.15);
-        transform: translateY(-5px);
+        transform: translateY(-3px);
+    }
+
+    .clients-section {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .clients-grid a {
+        color: black; /* Dark gray text */
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .clients-grid a:hover {
+        color: #0056b3; /* Darker blue on hover */
+        text-decoration: underline;
     }
 
     /* CTA section */
@@ -206,6 +224,34 @@
     .btn-secondary:hover {
         transform: translateY(-3px);
         box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Trusted Partners section */
+    .trusted-partners {
+        background: var(--white);
+        padding: 4rem 0;
+        margin-top: 3rem;
+    }
+
+    .expertise-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .expertise-item {
+        background: rgba(59, 130, 246, 0.1);
+        padding: 2rem;
+        border-radius: 15px;
+        text-align: center;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .expertise-item:hover {
+        transform: translateY(-5px);
+        background: rgba(59, 130, 246, 0.15);
     }
 
     /* Responsive design */
@@ -327,14 +373,14 @@
     </div>
 </section>
 
-<!-- Clients Section -->
-<section class="section clients-section">
+<!-- Trusted Partners Section -->
+<section class="section trusted-partners">
     <div class="container">
-        <h2 class="section-title" style="color: white;">Trusted by Industry Leaders</h2>
-        <div class="clients-grid">
+        <h2 class="section-title">Trusted by Industry Leaders</h2>
+        <div class="expertise-grid">
             {% for client in clients %}
-            <div class="client-item">
-                <h4>{{ client }}</h4>
+            <div class="expertise-item">
+                <h3><a href="{{ client.url }}" target="_blank" rel="noopener noreferrer">{{ client.name }}</a></h3>
             </div>
             {% endfor %}
         </div>
