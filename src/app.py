@@ -45,6 +45,11 @@ def contact():
             'message': 'An error occurred. Please try again.'
         }), 500
 
+# Route for Google verification
+@app.route('/google4e2fe9748f4d32e5.html')
+def google_verification():
+    return send_from_directory('static', 'google4e2fe9748f4d32e5.html')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True)
 
